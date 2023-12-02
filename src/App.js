@@ -53,36 +53,36 @@ const App = () => {
     <div>
       <label>
         <div className="LabelDiv">Stock Pivot Angles</div>
-        <div className="SliderDiv"><Slider axis="x" xmin={-180} xmax={180} x={StockPivotAngles[0]} onChange={({x}) => setStockPivotAngles([x, StockPivotAngles[1], StockPivotAngles[2]])} /></div>
-        <div className="SliderDiv"><Slider axis="x" xmin={-180} xmax={180} x={StockPivotAngles[1]} onChange={({x}) => setStockPivotAngles([StockPivotAngles[0], x, StockPivotAngles[2]])} /></div>
-        <div className="SliderDiv"><Slider axis="x" xmin={-180} xmax={180} x={StockPivotAngles[2]} onChange={({x}) => setStockPivotAngles([StockPivotAngles[0], StockPivotAngles[1], x])} /></div>
+        <div className="SliderDiv"><Slider axis="x" xmin={-180} xmax={180} x={StockPivotAngles[0]} onChange={({x}) => setStockPivotAngles([x, StockPivotAngles[1], StockPivotAngles[2]])} /><span className="InputValue">{StockPivotAngles[0]}&deg;</span></div>
+        <div className="SliderDiv"><Slider axis="x" xmin={-180} xmax={180} x={StockPivotAngles[1]} onChange={({x}) => setStockPivotAngles([StockPivotAngles[0], x, StockPivotAngles[2]])} /><span className="InputValue">{StockPivotAngles[1]}&deg;</span></div>
+        <div className="SliderDiv"><Slider axis="x" xmin={-180} xmax={180} x={StockPivotAngles[2]} onChange={({x}) => setStockPivotAngles([StockPivotAngles[0], StockPivotAngles[1], x])} /><span className="InputValue">{StockPivotAngles[2]}&deg;</span></div>
       </label>
     </div>
     <div>
       <label>
         <div className="LabelDiv">Cup Pivot Angles</div>
-        <div className="SliderDiv"><Slider axis="x" xmin={-180} xmax={180} x={CupPivotAngles[0]} onChange={({x}) => setCupPivotAngles([x, CupPivotAngles[1]])} /></div>
-        <div className="SliderDiv"><Slider axis="x" xmin={-180} xmax={180} x={CupPivotAngles[1]} onChange={({x}) => setCupPivotAngles([CupPivotAngles[0], x])} /></div>
+        <div className="SliderDiv"><Slider axis="x" xmin={-180} xmax={180} x={CupPivotAngles[0]} onChange={({x}) => setCupPivotAngles([x, CupPivotAngles[1]])} /><span className="InputValue">{CupPivotAngles[0]}&deg;</span></div>
+        <div className="SliderDiv"><Slider axis="x" xmin={-180} xmax={180} x={CupPivotAngles[1]} onChange={({x}) => setCupPivotAngles([CupPivotAngles[0], x])} /><span className="InputValue">{CupPivotAngles[1]}&deg;</span></div>
       </label>
     </div>    
     <div>
       <label>
         <div className="LabelDiv">Cup Offsets &#128308;</div>
-        <div className="SliderDiv"><Slider axis="x" xmin={0} xmax={525} x={CupOffsets[0]} onChange={({x}) => setCupOffsets([x, CupOffsets[1]])} /></div>
-        <div className="SliderDiv"><Slider axis="x" xmin={0} xmax={525} x={CupOffsets[1]} onChange={({x}) => setCupOffsets([CupOffsets[0], x])} /></div>
+        <div className="SliderDiv"><Slider axis="x" xmin={0} xmax={525} x={CupOffsets[0]} onChange={({x}) => setCupOffsets([x, CupOffsets[1]])} /><span className="InputValue">{CupOffsets[0]}</span></div>
+        <div className="SliderDiv"><Slider axis="x" xmin={0} xmax={525} x={CupOffsets[1]} onChange={({x}) => setCupOffsets([CupOffsets[0], x])} /><span className="InputValue">{CupOffsets[1]}</span></div>
       </label>
     </div>
     <div>
       <label>
         <div className="LabelDiv">Strap Mount Offsets &#128994;</div>
-        <div className="SliderDiv"><Slider axis="x" xmin={0} xmax={525} x={StrapMountOffsets[0]} onChange={({x}) => setStrapMountOffsets([x, StrapMountOffsets[1]])} /></div>
-        <div className="SliderDiv"><Slider axis="x" xmin={0} xmax={525} x={StrapMountOffsets[1]} onChange={({x}) => setStrapMountOffsets([StrapMountOffsets[0], x])} /></div>
+        <div className="SliderDiv"><Slider axis="x" xmin={0} xmax={525} x={StrapMountOffsets[0]} onChange={({x}) => setStrapMountOffsets([x, StrapMountOffsets[1]])} /><span className="InputValue">{StrapMountOffsets[0]}</span></div>
+        <div className="SliderDiv"><Slider axis="x" xmin={0} xmax={525} x={StrapMountOffsets[1]} onChange={({x}) => setStrapMountOffsets([StrapMountOffsets[0], x])} /><span className="InputValue">{StrapMountOffsets[1]}</span></div>
       </label>
     </div>
     <div>
       <label>
         <div className="LabelDiv">Cheek Rest Height</div>
-        <div className="SliderDiv"><Slider axis="x" xmin={0} xmax={125} x={CheekRestHeight} onChange={({x}) => setCheekRestHeight(x)} /></div>
+        <div className="SliderDiv"><Slider axis="x" xmin={0} xmax={125} x={CheekRestHeight} onChange={({x}) => setCheekRestHeight(x)} /><span className="InputValue">{CheekRestHeight}</span></div>
       </label>
     </div>
     <Canvas Height="750" Width="750" StockPivotAngles={StockPivotAngles} CheekRestHeight={CheekRestHeight} CupPivotAngles={CupPivotAngles} CupOffsets={CupOffsets} StrapMountOffsets={StrapMountOffsets}/>
