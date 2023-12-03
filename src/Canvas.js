@@ -48,7 +48,7 @@ const Canvas = props => {
     }
 
     useEffect(() => {
-        const drawLine = (ctx, x1, y1, x2,y2, stroke = 'black', width = 3) => {
+        const drawLine = (ctx, x1, y1, x2,y2, stroke = 'white', width = 3) => {
             ctx.beginPath();
             ctx.moveTo(x1, y1);
             ctx.lineTo(x2, y2);
@@ -57,7 +57,7 @@ const Canvas = props => {
             ctx.stroke();
         }
 
-        const drawPoint = (ctx, x, y, fill = 'black') => {
+        const drawPoint = (ctx, x, y, fill = 'white') => {
             ctx.beginPath();
             ctx.arc(x, y, 15, 0, 2 * Math.PI, true);
             ctx.fillStyle = fill;
@@ -67,14 +67,27 @@ const Canvas = props => {
         const drawLineWithStartLengthAngle = (ctx, x1, y1, l1, d1, t1=15) => {
             const x2 = x1 + l1 * Math.cos(Math.PI * d1 / 180.0);
             const y2 = y1 + l1 * Math.sin(Math.PI * d1 / 180.0);
-            drawLine(ctx, x1, y1, x2, y2, 'black', t1);
+            drawLine(ctx, x1, y1, x2, y2, 'white', t1);
             return {
                 X: x2,
                 Y: y2
             }
         }
 
-        const drawPointWithOffsetStartAngle = (ctx, x1, y1, o1, d1, fill = 'black') => {
+        const drawLineWithStartLengthAngleOffset = (ctx, x1, y1, l1, d1, o1=0, t1=15) => {
+            const x2 = x1 + o1 * Math.cos(Math.PI * d1 / 180.0);
+            const y2 = y1 + o1 * Math.sin(Math.PI * d1 / 180.0);
+
+            const x3 = x2 + l1 * Math.cos(Math.PI * d1 / 180.0);
+            const y3 = y2 + l1 * Math.sin(Math.PI * d1 / 180.0);
+            drawLine(ctx, x2, y2, x3, y3, 'white', t1);
+            return {
+                X: x2,
+                Y: y2
+            }
+        }
+
+        const drawPointWithOffsetStartAngle = (ctx, x1, y1, o1, d1, fill = 'white') => {
             const x2 = x1 + o1 * Math.cos(Math.PI * d1 / 180.0);
             const y2 = y1 + o1 * Math.sin(Math.PI * d1 / 180.0);
             drawPoint(ctx, x2, y2, fill);
@@ -84,7 +97,7 @@ const Canvas = props => {
             }
         }
 
-        const drawOffsetPoint = (ctx, offset, fill = 'black') => {
+        const drawOffsetPoint = (ctx, offset, fill = 'white') => {
             if(offset < MagTubeConfig.StockSegementLengths[0]) {
                 return drawPointWithOffsetStartAngle(ctx, MagTubeConfig.StockSegmentPositions[0].X, MagTubeConfig.StockSegmentPositions[0].Y, offset, props.StockPivotAngles[0], fill);
             } else if (offset < MagTubeConfig.StockSegementLengths[0] + MagTubeConfig.StockSegementLengths[1]) {
@@ -108,17 +121,20 @@ const Canvas = props => {
         const context = canvas.getContext('2d');
         context.lineCap = "round";
 
-        const cupLength = 75;
+        const cupLength = 60;
         const cheekRestLength = 75;
         const cheekRestHeight = 125;
 
         context.clearRect(0, 0, canvas.width, canvas.height);
+
+        context.fillStyle = "black";
+        context.fillRect(0, 0, canvas.width, canvas.height);
         
         const startX = MagTubeConfig.StockSegmentPositions[0].X;
         const startY = MagTubeConfig.StockSegmentPositions[0].Y;
 
-        drawLine(context, startX, startY-props.CheekRestHeight, startX + cheekRestLength, startY-props.CheekRestHeight, 'black', 15);
-        drawLine(context, startX, startY-props.CheekRestHeight, startX, startY-props.CheekRestHeight+cheekRestHeight, 'black', 15);
+        drawLine(context, startX, startY-props.CheekRestHeight, startX + cheekRestLength, startY-props.CheekRestHeight, 'white', 20);
+        drawLine(context, startX, startY-props.CheekRestHeight, startX, startY-props.CheekRestHeight+cheekRestHeight, 'white', 20);
 
         drawPoint(context, startX, startY);
         let position = drawLineWithStartLengthAngle(context, startX, startY, MagTubeConfig.StockSegementLengths[0], props.StockPivotAngles[0]);
@@ -143,8 +159,8 @@ const Canvas = props => {
         drawOffsetPoint(context, props.StrapMountOffsets[0], 'green');
         drawOffsetPoint(context, props.StrapMountOffsets[1], 'green');
 
-        drawLineWithStartLengthAngle(context, MagTubeConfig.CupPositions[0].X, MagTubeConfig.CupPositions[0].Y, cupLength, props.CupPivotAngles[0] + getStockAngleFromOffset(props.CupOffsets[0]), 15);
-        drawLineWithStartLengthAngle(context, MagTubeConfig.CupPositions[1].X, MagTubeConfig.CupPositions[1].Y, cupLength, props.CupPivotAngles[1] + getStockAngleFromOffset(props.CupOffsets[1]), 15);
+        drawLineWithStartLengthAngleOffset(context, MagTubeConfig.CupPositions[0].X, MagTubeConfig.CupPositions[0].Y, cupLength, props.CupPivotAngles[0] + getStockAngleFromOffset(props.CupOffsets[0]), 28, 25);
+        drawLineWithStartLengthAngleOffset(context, MagTubeConfig.CupPositions[1].X, MagTubeConfig.CupPositions[1].Y, cupLength, props.CupPivotAngles[1] + getStockAngleFromOffset(props.CupOffsets[1]), 28, 25);
 
     }, [props.StockPivotAngles, props.CheekRestHeight, props.CupPivotAngles, props.CupOffsets, props.StrapMountOffsets, MagTubeConfig])
     
