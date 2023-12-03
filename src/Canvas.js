@@ -164,7 +164,7 @@ const Canvas = props => {
 
     }, [props.StockPivotAngles, props.CheekRestHeight, props.CupPivotAngles, props.CupOffsets, props.StrapMountOffsets, MagTubeConfig])
     
-    return <div><div><button onClick={downloadImage}>Download</button></div><div><canvas ref={canvasRef} {...props}/></div></div>
+    return <div><div><button onClick={downloadImage}>Download Image</button></div><div><canvas ref={canvasRef} {...props}/></div></div>
 }
 
 export default Canvas

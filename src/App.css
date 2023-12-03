@@ -22,3 +22,12 @@ span {
   width: 35px;
   height: 10px;
 }
+
+h2 {
+  margin-bottom:0px;
+}
+
+h4 {
+  margin-top:0px;
+  font-weight:500;
+}
