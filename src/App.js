@@ -2,6 +2,8 @@ import Canvas from './Canvas'
 import React, {useState, useEffect} from 'react'
 import Slider from 'react-input-slider'
 // https://www.npmjs.com/package/react-input-slider
+import Switch from "react-switch";
+// https://www.npmjs.com/package/react-switch
 import './App.css'
 
 const App = () => {
@@ -31,6 +33,8 @@ const App = () => {
     parseInt(params.get('strap_mount_offset_1')) || 425
   ]);
 
+  const [ForceTube, setForceTube] = useState(params.get('force_tube')  === "true");
+
   useEffect(() => {
     const url = window.location.href.split('?')[0];
     const params = `?stock_pivot_angle_0=${StockPivotAngles[0]}`
@@ -42,10 +46,11 @@ const App = () => {
     + `&cup_offset_0=${CupOffsets[0]}`
     + `&cup_offset_1=${CupOffsets[1]}`
     + `&strap_mount_offset_0=${StrapMountOffsets[0]}`
-    + `&strap_mount_offset_1=${StrapMountOffsets[1]}`;
+    + `&strap_mount_offset_1=${StrapMountOffsets[1]}`
+    + `&force_tube=${ForceTube}`; 
     
     window.history.pushState({}, "", url + params);
-  },[StockPivotAngles, CheekRestHeight, CupPivotAngles, CupOffsets, StrapMountOffsets]);
+  },[StockPivotAngles, CheekRestHeight, CupPivotAngles, CupOffsets, StrapMountOffsets, ForceTube]);
 
   const sliderStyles = {    
     track: {
@@ -55,7 +60,7 @@ const App = () => {
       backgroundColor: '#eb651a'
     }
   }
-  
+
   return <div className="App">
     <h2>ProTubeVR MagTube Gunstock Configurations Beta</h2>
     <h4>substatica (<a href="https://youtube.com/substatica" target="_blank">youtube.com/substatica</a>)</h4>
@@ -63,7 +68,7 @@ const App = () => {
     <div>
       <label>
         <div className="LabelDiv">Stock Pivot Angles</div>
-        <div className="SliderDiv"><Slider styles={sliderStyles} stylesaxis="x" xmin={-90} xmax={90} x={StockPivotAngles[0]} onChange={({x}) => setStockPivotAngles([x, StockPivotAngles[1], StockPivotAngles[2]])} /><span className="InputValue">{StockPivotAngles[0]}&deg;</span></div>
+        <div className="SliderDiv"><Slider styles={sliderStyles} stylesaxis="x" xmin={ForceTube ? 0 : -90} xmax={90} x={StockPivotAngles[0]} onChange={({x}) => setStockPivotAngles([x, StockPivotAngles[1], StockPivotAngles[2]])} /><span className="InputValue">{StockPivotAngles[0]}&deg;</span></div>
         <div className="SliderDiv"><Slider styles={sliderStyles} axis="x" xmin={-180} xmax={180} x={StockPivotAngles[1]} onChange={({x}) => setStockPivotAngles([StockPivotAngles[0], x, StockPivotAngles[2]])} /><span className="InputValue">{StockPivotAngles[1]}&deg;</span></div>
         <div className="SliderDiv"><Slider styles={sliderStyles} axis="x" xmin={-180} xmax={180} x={StockPivotAngles[2]} onChange={({x}) => setStockPivotAngles([StockPivotAngles[0], StockPivotAngles[1], x])} /><span className="InputValue">{StockPivotAngles[2]}&deg;</span></div>
       </label>
@@ -95,7 +100,13 @@ const App = () => {
         <div className="SliderDiv"><Slider styles={sliderStyles} axis="x" xmin={0} xmax={125} x={CheekRestHeight} onChange={({x}) => setCheekRestHeight(x)} /><span className="InputValue">{CheekRestHeight}</span></div>
       </label>
     </div>
-    <Canvas Height="750" Width="750" StockPivotAngles={StockPivotAngles} CheekRestHeight={CheekRestHeight} CupPivotAngles={CupPivotAngles} CupOffsets={CupOffsets} StrapMountOffsets={StrapMountOffsets}/>
+    <div>
+      <label>
+        <div className="LabelDiv">ForceTube</div>
+        <div className="SliderDiv"><Switch activeBoxShadow="0px 0px 0px 0px rgba(0, 0, 0, 0)" onColor="#eb651a" checked={ForceTube} onChange={() => setForceTube(!ForceTube)} /></div>
+      </label>
+    </div>
+    <Canvas Height="750" Width="750" ForceTube={ForceTube} StockPivotAngles={StockPivotAngles} CheekRestHeight={CheekRestHeight} CupPivotAngles={CupPivotAngles} CupOffsets={CupOffsets} StrapMountOffsets={StrapMountOffsets}/>
   </div>
 }
 

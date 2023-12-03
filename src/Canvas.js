@@ -7,6 +7,7 @@ const Canvas = props => {
         CupPivotAngles: props.CupPivotAngles,
         CupOffsets: props.CupOffsets,
         StrapMountOffsets: props.StrapMountOffsets,
+        ForceTube: props.ForceTube,
         StockSegementLengths: [
             175,
             175,
@@ -48,6 +49,15 @@ const Canvas = props => {
     }
 
     useEffect(() => {
+        const drawRect = (ctx, x1, y1, w1, h1, fill = 'white') => {
+            ctx.beginPath();
+            ctx.strokeStyle = fill;
+            ctx.fillStyle = fill;
+            ctx.roundRect(x1, y1, w1, h1, 10);
+            ctx.stroke();
+            ctx.fill();
+        }
+
         const drawLine = (ctx, x1, y1, x2,y2, stroke = 'white', width = 3) => {
             ctx.beginPath();
             ctx.moveTo(x1, y1);
@@ -124,6 +134,7 @@ const Canvas = props => {
         const cupLength = 60;
         const cheekRestLength = 75;
         const cheekRestHeight = 125;
+        const foreTubeHeight = cheekRestHeight - 25;
 
         context.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -133,8 +144,14 @@ const Canvas = props => {
         const startX = MagTubeConfig.StockSegmentPositions[0].X;
         const startY = MagTubeConfig.StockSegmentPositions[0].Y;
 
-        drawLine(context, startX, startY-props.CheekRestHeight, startX + cheekRestLength, startY-props.CheekRestHeight, 'white', 20);
-        drawLine(context, startX, startY-props.CheekRestHeight, startX, startY-props.CheekRestHeight+cheekRestHeight, 'white', 20);
+        if(props.ForceTube) {
+            drawLine(context, startX, startY-foreTubeHeight, startX + cheekRestLength, startY-foreTubeHeight, 'white', 20);
+            drawLine(context, startX, startY-foreTubeHeight, startX, startY - foreTubeHeight + cheekRestHeight, 'white', 20);
+            drawRect(context, startX, startY-foreTubeHeight, cheekRestLength + 10, foreTubeHeight - foreTubeHeight + cheekRestHeight - 40, 'white');
+        } else {
+            drawLine(context, startX, startY-props.CheekRestHeight, startX + cheekRestLength, startY-props.CheekRestHeight, 'white', 20);
+            drawLine(context, startX, startY-props.CheekRestHeight, startX, startY-props.CheekRestHeight+cheekRestHeight, 'white', 20);
+        }
 
         let position = drawLineWithStartLengthAngle(context, startX, startY, MagTubeConfig.StockSegementLengths[0], props.StockPivotAngles[0]);
 
@@ -157,7 +174,7 @@ const Canvas = props => {
         drawLineWithStartLengthAngleOffset(context, MagTubeConfig.CupPositions[0].X, MagTubeConfig.CupPositions[0].Y, cupLength, props.CupPivotAngles[0] + getStockAngleFromOffset(props.CupOffsets[0]), 28, 25);
         drawLineWithStartLengthAngleOffset(context, MagTubeConfig.CupPositions[1].X, MagTubeConfig.CupPositions[1].Y, cupLength, props.CupPivotAngles[1] + getStockAngleFromOffset(props.CupOffsets[1]), 28, 25);
 
-    }, [props.StockPivotAngles, props.CheekRestHeight, props.CupPivotAngles, props.CupOffsets, props.StrapMountOffsets, MagTubeConfig])
+    }, [props.StockPivotAngles, props.CheekRestHeight, props.CupPivotAngles, props.CupOffsets, props.StrapMountOffsets, props.ForceTube, MagTubeConfig])
     
     return <div><div><button onClick={downloadImage}>Download Image</button></div><div><canvas ref={canvasRef} {...props}/></div></div>
 }
