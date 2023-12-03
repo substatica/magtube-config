@@ -34,6 +34,10 @@ const App = () => {
   ]);
 
   const [ForceTube, setForceTube] = useState(params.get('force_tube')  === "true");
+  
+  const [Bipod, setBipod] = useState(params.get('bipod')  === "true");
+
+  const [BipodOffset, setBipodOffset] = useState(parseInt(params.get('bipod_offset')) || 500);
 
   useEffect(() => {
     const url = window.location.href.split('?')[0];
@@ -47,10 +51,12 @@ const App = () => {
     + `&cup_offset_1=${CupOffsets[1]}`
     + `&strap_mount_offset_0=${StrapMountOffsets[0]}`
     + `&strap_mount_offset_1=${StrapMountOffsets[1]}`
-    + `&force_tube=${ForceTube}`; 
+    + `&force_tube=${ForceTube}`
+    + `&bipod=${Bipod}`
+    + `&bipod_offset=${BipodOffset}`;
     
     window.history.pushState({}, "", url + params);
-  },[StockPivotAngles, CheekRestHeight, CupPivotAngles, CupOffsets, StrapMountOffsets, ForceTube]);
+  },[Bipod, BipodOffset, StockPivotAngles, CheekRestHeight, CupPivotAngles, CupOffsets, StrapMountOffsets, ForceTube]);
 
   const sliderStyles = {    
     track: {
@@ -102,11 +108,24 @@ const App = () => {
     </div>
     <div>
       <label>
+        <div className="LabelDiv">Bipod</div>
+        <div className="SliderDiv">
+          <Switch activeBoxShadow="0px 0px 0px 0px rgba(0, 0, 0, 0)" onColor="#eb651a" checked={Bipod} onChange={() => setBipod(!Bipod)} />
+        </div>
+      </label>
+        <div className="SliderDiv">
+          <Slider styles={sliderStyles} axis="x" xmin={0} xmax={525} x={BipodOffset} onChange={({x}) => setBipodOffset(x)} />
+          <span className="InputValue">{BipodOffset}</span>
+        </div>
+      
+    </div>
+    <div>
+      <label>
         <div className="LabelDiv">ForceTube</div>
         <div className="SliderDiv"><Switch activeBoxShadow="0px 0px 0px 0px rgba(0, 0, 0, 0)" onColor="#eb651a" checked={ForceTube} onChange={() => setForceTube(!ForceTube)} /></div>
       </label>
     </div>
-    <Canvas Height="750" Width="750" ForceTube={ForceTube} StockPivotAngles={StockPivotAngles} CheekRestHeight={CheekRestHeight} CupPivotAngles={CupPivotAngles} CupOffsets={CupOffsets} StrapMountOffsets={StrapMountOffsets}/>
+    <Canvas Height="750" Width="750" Bipod={Bipod} BipodOffset={BipodOffset} ForceTube={ForceTube} StockPivotAngles={StockPivotAngles} CheekRestHeight={CheekRestHeight} CupPivotAngles={CupPivotAngles} CupOffsets={CupOffsets} StrapMountOffsets={StrapMountOffsets}/>
   </div>
 }
 
