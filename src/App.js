@@ -73,14 +73,14 @@ const App = () => {
     </div>    
     <div>
       <label>
-        <div className="LabelDiv">Cup Offsets &#128308;</div>
+        <div className="LabelDiv">Cup Offsets <span className="OrangeDot"></span></div>
         <div className="SliderDiv"><Slider styles={sliderStyles} axis="x" xmin={0} xmax={525} x={CupOffsets[0]} onChange={({x}) => setCupOffsets([x, CupOffsets[1]])} /><span className="InputValue">{CupOffsets[0]}</span></div>
         <div className="SliderDiv"><Slider styles={sliderStyles} axis="x" xmin={0} xmax={525} x={CupOffsets[1]} onChange={({x}) => setCupOffsets([CupOffsets[0], x])} /><span className="InputValue">{CupOffsets[1]}</span></div>
       </label>
     </div>
     <div>
       <label>
-        <div className="LabelDiv">Strap Mount Offsets &#128994;</div>
+        <div className="LabelDiv">Strap Mount Offsets <span className="GreyDot"></span></div>
         <div className="SliderDiv"><Slider styles={sliderStyles} axis="x" xmin={0} xmax={525} x={StrapMountOffsets[0]} onChange={({x}) => setStrapMountOffsets([x, StrapMountOffsets[1]])} /><span className="InputValue">{StrapMountOffsets[0]}</span></div>
         <div className="SliderDiv"><Slider styles={sliderStyles} axis="x" xmin={0} xmax={525} x={StrapMountOffsets[1]} onChange={({x}) => setStrapMountOffsets([StrapMountOffsets[0], x])} /><span className="InputValue">{StrapMountOffsets[1]}</span></div>
       </label>

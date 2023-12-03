@@ -136,28 +136,23 @@ const Canvas = props => {
         drawLine(context, startX, startY-props.CheekRestHeight, startX + cheekRestLength, startY-props.CheekRestHeight, 'white', 20);
         drawLine(context, startX, startY-props.CheekRestHeight, startX, startY-props.CheekRestHeight+cheekRestHeight, 'white', 20);
 
-        drawPoint(context, startX, startY);
         let position = drawLineWithStartLengthAngle(context, startX, startY, MagTubeConfig.StockSegementLengths[0], props.StockPivotAngles[0]);
-
-        drawPoint(context, position.X, position.Y);
 
         MagTubeConfig.StockSegmentPositions[1] = position;
         setMagTubeConfig(MagTubeConfig);
 
         position = drawLineWithStartLengthAngle(context, position.X, position.Y, MagTubeConfig.StockSegementLengths[1], props.StockPivotAngles[1] + props.StockPivotAngles[0]);
 
-        drawPoint(context, position.X, position.Y);
-
         MagTubeConfig.StockSegmentPositions[2] = position;
         setMagTubeConfig(MagTubeConfig);
 
         position = drawLineWithStartLengthAngle(context, position.X, position.Y, MagTubeConfig.StockSegementLengths[2], props.StockPivotAngles[2] + props.StockPivotAngles[1] + props.StockPivotAngles[0]);
 
-        MagTubeConfig.CupPositions[0] = drawOffsetPoint(context, props.CupOffsets[0], 'red');
-        MagTubeConfig.CupPositions[1] = drawOffsetPoint(context, props.CupOffsets[1], 'red');
+        MagTubeConfig.CupPositions[0] = drawOffsetPoint(context, props.CupOffsets[0], '#eb651a');
+        MagTubeConfig.CupPositions[1] = drawOffsetPoint(context, props.CupOffsets[1], '#eb651a');
 
-        drawOffsetPoint(context, props.StrapMountOffsets[0], 'green');
-        drawOffsetPoint(context, props.StrapMountOffsets[1], 'green');
+        drawOffsetPoint(context, props.StrapMountOffsets[0], 'grey');
+        drawOffsetPoint(context, props.StrapMountOffsets[1], 'grey');
 
         drawLineWithStartLengthAngleOffset(context, MagTubeConfig.CupPositions[0].X, MagTubeConfig.CupPositions[0].Y, cupLength, props.CupPivotAngles[0] + getStockAngleFromOffset(props.CupOffsets[0]), 28, 25);
         drawLineWithStartLengthAngleOffset(context, MagTubeConfig.CupPositions[1].X, MagTubeConfig.CupPositions[1].Y, cupLength, props.CupPivotAngles[1] + getStockAngleFromOffset(props.CupOffsets[1]), 28, 25);

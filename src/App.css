@@ -23,6 +23,26 @@ span {
   height: 10px;
 }
 
+.GreyDot {
+  display: inline-block;
+  height: 18px;
+  width: 18px;
+  padding: 0px;
+  margin: 0px 0px 0px 4px;
+  background-color: grey;
+  border-radius: 50%;
+}
+
+.OrangeDot {
+  display: inline-block;
+  height: 18px;
+  width: 18px;
+  padding: 0px;
+  margin: 0px 0px 0px 4px;
+  background-color: #eb651a;;
+  border-radius: 50%;
+}
+
 h2 {
   margin-bottom:0px;
 }
