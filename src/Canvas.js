@@ -2,14 +2,6 @@ import React, {useState, useRef, useEffect } from 'react'
 
 const Canvas = props => {
     const [MagTubeConfig, setMagTubeConfig] = useState({
-        StockPivotAngles: props.StockPivotAngles,
-        CheekRestHeight: props.CheekRestHeight,
-        CupPivotAngles: props.CupPivotAngles,
-        CupOffsets: props.CupOffsets,
-        StrapMountOffsets: props.StrapMountOffsets,
-        ForceTube: props.ForceTube,
-        Bipod: props.Bipod,
-        BipodOffset: props.BipodOffset,
         StockSegementLengths: [
             175,
             175,
@@ -28,7 +20,7 @@ const Canvas = props => {
         StockSegmentPositions: [
             { 
                 X: 35,
-                Y: 150
+                Y: 175
             },
             { 
                 X: 0,
@@ -184,7 +176,7 @@ const Canvas = props => {
             drawLine(context, startX, startY-props.CheekRestHeight, startX + cheekRestLength, startY-props.CheekRestHeight, 'white', 20);
             drawLine(context, startX, startY-props.CheekRestHeight, startX, startY-props.CheekRestHeight+cheekRestHeight, 'white', 20);
         }
-        
+
         // Stock segment one
         let position = drawLineWithStartLengthAngle(context, startX, startY, MagTubeConfig.StockSegementLengths[0], props.StockPivotAngles[0]);
 
