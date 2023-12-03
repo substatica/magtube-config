@@ -121,7 +121,7 @@ const App = () => {
     </div>
     <div>
       <label>
-        <div className="LabelDiv">ForceTube</div>
+        <div className="LabelDiv">ForceTube Module</div>
         <div className="SliderDiv"><Switch activeBoxShadow="0px 0px 0px 0px rgba(0, 0, 0, 0)" onColor="#eb651a" checked={ForceTube} onChange={() => setForceTube(!ForceTube)} /></div>
       </label>
     </div>
