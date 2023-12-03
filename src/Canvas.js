@@ -161,7 +161,6 @@ const Canvas = props => {
         if(props.Bipod) {
             const bipodPosition = getOffsetPoint(context, props.BipodOffset);
             let angle = getStockAngleFromOffset(props.BipodOffset);
-            // angle = angle < 0 ? angle + 90 : angle;
             drawLineWithStartLengthAngleOffset(context, bipodPosition.X, bipodPosition.Y, 100, 110 + angle, 0, 11, "#777777");
             drawLineWithStartLengthAngleOffset(context, bipodPosition.X, bipodPosition.Y, 100, 70 + angle);
         }
