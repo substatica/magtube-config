@@ -49,7 +49,7 @@ const App = () => {
   return <div className="App">
     <h2>ProTubeVR MagTube Gunstock Configurations Beta</h2>
     <h4>substatica (<a href="http://youtube.com/substatica">http://youtube.com/substatica</a>)</h4>
-    <span>Configure your stock and either download and save the result, or share or bookmark the URL which updates with your changes.</span>
+    <span>Configure your stock and either download and save the result, or share or bookmark the URL which updates with your changes. Source available on <a href="https://github.com/substatica/magtube-config/">GitHub</a>.</span>
     <div>
       <label>
         <div className="LabelDiv">Stock Pivot Angles</div>
