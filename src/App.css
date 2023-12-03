@@ -1,14 +1,26 @@
+.App {
+  margin: 10px;
+}
+
 .SliderDiv {
   margin-left: 10px;
-  display: inline;
+  margin-top: 10px;
+  display: inline-block;
 }
 
 .LabelDiv {
-  font-weight:bold;
+  font-weight:500;
+  margin: 5px 0px;
 }
 
 button {
-  margin-top: 10px;
+  background-color: #eb651a;
+  color: white;
+  font-size: 25px;
+  padding: 10px 60px;
+  border-radius: 5px;
+  margin: 20px 0px;
+  cursor: pointer;
 }
 
 span {
@@ -28,7 +40,7 @@ span {
   height: 18px;
   width: 18px;
   padding: 0px;
-  margin: 0px 0px 0px 4px;
+  margin: 0px 0px -2px 4px;
   background-color: grey;
   border-radius: 50%;
 }
@@ -38,7 +50,7 @@ span {
   height: 18px;
   width: 18px;
   padding: 0px;
-  margin: 0px 0px 0px 4px;
+  margin: 0px 0px -2px 4px;
   background-color: #eb651a;;
   border-radius: 50%;
 }
