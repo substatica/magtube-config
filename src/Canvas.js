@@ -68,6 +68,15 @@ const Canvas = props => {
             ctx.fill();
         }
 
+        const getPointFromStartLengthAngle = (x1, y1, l1, d1) => {
+            const x2 = x1 + l1 * Math.cos(Math.PI * d1 / 180.0);
+            const y2 = y1 + l1 * Math.sin(Math.PI * d1 / 180.0);
+            return {
+                X: x2,
+                Y: y2
+            }
+        }
+
         const drawLineWithStartLengthAngle = (ctx, x1, y1, l1, d1, t1=15) => {
             const x2 = x1 + l1 * Math.cos(Math.PI * d1 / 180.0);
             const y2 = y1 + l1 * Math.sin(Math.PI * d1 / 180.0);
@@ -157,6 +166,15 @@ const Canvas = props => {
         const startX = MagTubeConfig.StockSegmentPositions[0].X;
         const startY = MagTubeConfig.StockSegmentPositions[0].Y;
 
+        // Pre-compute stock positions
+        let position = getPointFromStartLengthAngle(startX, startY, MagTubeConfig.StockSegementLengths[0], props.StockPivotAngles[0]);
+        MagTubeConfig.StockSegmentPositions[1] = position;
+        setMagTubeConfig(MagTubeConfig);
+
+        position = getPointFromStartLengthAngle(position.X, position.Y, MagTubeConfig.StockSegementLengths[1], props.StockPivotAngles[1] + props.StockPivotAngles[0]);
+        MagTubeConfig.StockSegmentPositions[2] = position;
+        setMagTubeConfig(MagTubeConfig);
+
         // Bipod
         if(props.Bipod) {
             const bipodPosition = getOffsetPoint(context, props.BipodOffset);
@@ -177,19 +195,13 @@ const Canvas = props => {
         }
 
         // Stock segment one
-        let position = drawLineWithStartLengthAngle(context, startX, startY, MagTubeConfig.StockSegementLengths[0], props.StockPivotAngles[0]);
-
-        MagTubeConfig.StockSegmentPositions[1] = position;
-        setMagTubeConfig(MagTubeConfig);
+        drawLineWithStartLengthAngle(context, startX, startY, MagTubeConfig.StockSegementLengths[0], props.StockPivotAngles[0]);
 
         // Stock segment two
-        position = drawLineWithStartLengthAngle(context, position.X, position.Y, MagTubeConfig.StockSegementLengths[1], props.StockPivotAngles[1] + props.StockPivotAngles[0]);
-
-        MagTubeConfig.StockSegmentPositions[2] = position;
-        setMagTubeConfig(MagTubeConfig);
+        drawLineWithStartLengthAngle(context, MagTubeConfig.StockSegmentPositions[1].X, MagTubeConfig.StockSegmentPositions[1].Y, MagTubeConfig.StockSegementLengths[1], props.StockPivotAngles[1] + props.StockPivotAngles[0]);
 
         // Stock segment three
-        position = drawLineWithStartLengthAngle(context, position.X, position.Y, MagTubeConfig.StockSegementLengths[2], props.StockPivotAngles[2] + props.StockPivotAngles[1] + props.StockPivotAngles[0]);
+        drawLineWithStartLengthAngle(context, MagTubeConfig.StockSegmentPositions[2].X, MagTubeConfig.StockSegmentPositions[2].Y, MagTubeConfig.StockSegementLengths[2], props.StockPivotAngles[2] + props.StockPivotAngles[1] + props.StockPivotAngles[0]);
 
         // Cup mounts
         MagTubeConfig.CupPositions[0] = drawOffsetPoint(context, props.CupOffsets[0], '#eb651a');
