@@ -20,7 +20,7 @@ const Canvas = props => {
         StockSegmentPositions: [
             { 
                 X: 35,
-                Y: 175
+                Y: 200
             },
             { 
                 X: 0,
